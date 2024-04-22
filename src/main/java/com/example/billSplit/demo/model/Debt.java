@@ -1,6 +1,7 @@
 package com.example.billSplit.demo.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ManyToAny;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,29 +12,38 @@ public class Debt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "user")
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
     @Column(name = "expense")
     private float expense;
+
     @Column(name = "concept")
     private String concept;
-    @Column(name = "event")
+
+    @ManyToOne
+    @JoinColumn(name = "event_id")
     private Event event;
-    @Column(name = "debtors")
+
+    @ManyToMany
+    @JoinTable(
+            name = "debt_debtors",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "debt_id")
+    )
     private List<User> debtors;
-    @Column(name = "payed_debtors")
-    private List<User> payedDebtors;
+
     @Column(name = "payed_amount")
     private Integer payedAmount;
 
-
-    public Debt(User user, float expense, String concept, Event event, List<User> debtors, List<User> payedDebtors, Integer payedAmount) {
+    public Debt(User user, float expense, String concept, Event event, List<User> debtors, Integer payedAmount) {
         setUser(user);
         setExpense(expense);
         setConcept(concept);
         setEvent(event);
         setDebtors(debtors);
-        setPayedDebtors(payedDebtors);
         setPayedAmount(payedAmount);
     }
 
@@ -77,14 +87,6 @@ public class Debt {
         this.debtors = debtors;
     }
 
-    public List<User> getPayedDebtors() {
-        return payedDebtors;
-    }
-
-    public void setPayedDebtors(List<User> payedDebtors) {
-        this.payedDebtors = payedDebtors;
-    }
-
     public Integer getPayedAmount() {
         return payedAmount;
     }
@@ -98,11 +100,11 @@ public class Debt {
         if (this == o) return true;
         if (!(o instanceof Debt)) return false;
         Debt debt = (Debt) o;
-        return Float.compare(expense, debt.expense) == 0 && Objects.equals(user, debt.user) && Objects.equals(concept, debt.concept) && Objects.equals(event, debt.event) && Objects.equals(debtors, debt.debtors) && Objects.equals(payedDebtors, debt.payedDebtors) && Objects.equals(payedAmount, debt.payedAmount);
+        return Float.compare(expense, debt.expense) == 0 && Objects.equals(user, debt.user) && Objects.equals(concept, debt.concept) && Objects.equals(event, debt.event) && Objects.equals(debtors, debt.debtors) && Objects.equals(payedAmount, debt.payedAmount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, expense, concept, event, debtors, payedDebtors, payedAmount);
+        return Objects.hash(user, expense, concept, event, debtors, payedAmount);
     }
 }

@@ -1,15 +1,15 @@
 package com.example.billSplit.demo.model;
 import com.example.billSplit.demo.Utils.Functions;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -17,8 +17,17 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "events")
-    private List<Event> events = new ArrayList<Event>();
+    @OneToMany(mappedBy = "organizer")
+    private List<Event> organizedEvents = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "event_users",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name="event_id")
+
+    )
+    private List<Event> assistedEvents = new ArrayList<Event>();
 
     public User(String name, String email) {
         setName(name);
@@ -53,10 +62,10 @@ public class User {
     }
 
     public List<Event> getEvents() {
-        return events;
+        return assistedEvents;
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
+    public void setEvents(List<Event> assistedEvents) {
+        this.assistedEvents = assistedEvents;
     }
 }
