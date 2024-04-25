@@ -1,9 +1,9 @@
 package com.example.billSplit.demo.model;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.List;
+
 
 @Entity
 @Table(name = "event")
@@ -16,15 +16,16 @@ public class Event {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "organizedEvents")
+    @JoinColumn(name = "organizer_id")  // Adjusted to a more typical naming convention
     private User organizer;
 
     @Column(name = "location")
     private String location;
 
-    @Column(name = "balance ")
+    @Column(name = "balance")
     private Float balance;
 
+    @Temporal(TemporalType.DATE)  // Ensure correct handling of date type
     @Column(name = "date")
     private Date date;
 

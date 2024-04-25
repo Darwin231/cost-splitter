@@ -37,7 +37,14 @@ public class User {
     public User(String name, String email, List<Event> events) {
         setName(name);
         setEmail(email);
-        setEvents(events);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,7 +55,7 @@ public class User {
         this.name = name;
     }
 
-    public String getMail() {
+    public String getEmail() {
         return email;
     }
 
@@ -61,11 +68,19 @@ public class User {
         }
     }
 
-    public List<Event> getEvents() {
+    public List<Event> getOrganizedEvents() {
+        return organizedEvents;
+    }
+
+    public void setOrganizedEvents(List<Event> organizedEvents) {
+        this.organizedEvents = organizedEvents;
+    }
+
+    public List<Event> getAssistedEvents() {
         return assistedEvents;
     }
 
-    public void setEvents(List<Event> assistedEvents) {
+    public void setAssistedEvents(List<Event> assistedEvents) {
         this.assistedEvents = assistedEvents;
     }
 }
