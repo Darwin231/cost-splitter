@@ -88,5 +88,17 @@ public class EventController {
         debtServiceInterface.addDebtor(debtId, user);
     }
 
+    @GetMapping("/debt/amounts")
+    public int amountToPay(Debt debt){
+        return (int) (debt.getExpense() / debt.getDebtors().size());
+    }
+
+
+    @PutMapping("/debt/payed")
+    public void pay(Integer debtId, Integer amount, Integer userId){
+        debtServiceInterface.payed(debtId, amount, userId);
+    }
+
+
 
 }

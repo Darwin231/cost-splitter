@@ -106,6 +106,12 @@ public class Debt {
         this.payedAmount = payedAmount;
     }
 
+    // Once a payed has been received
+    public void pay(Integer payed, Debt debt){
+        debt.setPayedAmount(payed);
+        debt.setExpense(debt.getExpense() - payed);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
