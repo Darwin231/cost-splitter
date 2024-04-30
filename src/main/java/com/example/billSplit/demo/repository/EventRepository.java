@@ -20,11 +20,11 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     List<User> findAssistantsByEvent(@Param("event") Event event);
 
     @Query("SELECT DISTINCT u FROM User u JOIN u.assistedEvents e WHERE e.id IN :eventIds")
-    List<User> findAssistantsByEventIds(@Param("eventIds") List<Integer> eventIds);
+    List<User> findAssistantsByEventIds(@Param("eventIds") Integer eventIds);
 
     @Query("SELECT DISTINCT u FROM User u JOIN u.assistedEvents e WHERE e.title = :eventTitle")
     List<User> findAssistantsByEventTitle(@Param("eventTitle") String eventTitle);
 
     @Query("SELECT DISTINCT e.organizer FROM Event e WHERE e.id IN :eventIds")
-    List<User> findOrganizersByEventIds(@Param("eventIds") List<Integer> eventIds);
+    List<User> findOrganizersByEventIds(@Param("eventIds") Integer eventIds);
 }

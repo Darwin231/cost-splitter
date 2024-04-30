@@ -1,8 +1,6 @@
 package com.example.billSplit.demo.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ManyToAny;
-
 import java.util.List;
 import java.util.Objects;
 

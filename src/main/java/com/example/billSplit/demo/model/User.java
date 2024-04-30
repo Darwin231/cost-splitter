@@ -34,11 +34,6 @@ public class User {
         setEmail(email);
     }
 
-    public User(String name, String email, List<Event> events) {
-        setName(name);
-        setEmail(email);
-    }
-
     public Integer getId() {
         return id;
     }

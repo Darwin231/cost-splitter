@@ -16,7 +16,7 @@ public class Event {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "organizer_id")  // Adjusted to a more typical naming convention
+    @JoinColumn(name = "organizer_id")
     private User organizer;
 
     @Column(name = "location")
@@ -25,7 +25,7 @@ public class Event {
     @Column(name = "balance")
     private Float balance;
 
-    @Temporal(TemporalType.DATE)  // Ensure correct handling of date type
+    @Temporal(TemporalType.DATE)
     @Column(name = "date")
     private Date date;
 
