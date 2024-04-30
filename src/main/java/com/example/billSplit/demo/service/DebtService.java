@@ -4,9 +4,11 @@ import com.example.billSplit.demo.model.Debt;
 import com.example.billSplit.demo.model.User;
 import com.example.billSplit.demo.repository.DebtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DebtService implements DebtServiceInterface {
     @Autowired
     private DebtRepository debtRepository;

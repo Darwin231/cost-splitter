@@ -1,5 +1,6 @@
 package com.example.billSplit.demo.controller;
 
+import com.example.billSplit.demo.model.Debt;
 import com.example.billSplit.demo.model.Event;
 import com.example.billSplit.demo.model.User;
 import com.example.billSplit.demo.repository.DebtRepository;
@@ -64,7 +65,5 @@ public class EventController {
     public Optional<User> getUser(@PathVariable Integer userId){
         return userRepository.findById(userId);
     }
-
-
 
 }

@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "debt")
+@Entity
+@Table(name = "Debt")
 public class Debt {
     // debt generation
     @Id
