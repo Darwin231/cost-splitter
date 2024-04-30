@@ -17,4 +17,5 @@ public interface DebtRepository extends JpaRepository<Debt, Integer> {
 
     @Query("SELECT d FROM Debt d WHERE d.user.id = :userId")
     List<Debt> findAllDebtsByUser(@Param("userId") Integer userId);
+
 }

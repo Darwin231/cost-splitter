@@ -4,9 +4,12 @@ import com.example.billSplit.demo.model.Debt;
 import com.example.billSplit.demo.model.User;
 import com.example.billSplit.demo.repository.DebtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DebtService implements DebtServiceInterface {
@@ -29,5 +32,19 @@ public class DebtService implements DebtServiceInterface {
         debtRepository.deleteById(debtId);
     }
 
+    @Override
+    public void addDebtor(Integer debtId, User user) {
+        Optional<Debt> debt = debtRepository.findById(debtId);
+
+        if (debt.isPresent()) {
+            debt.get().addDebtor(user);
+            debtRepository.save(debt.get());
+
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+
+    }
 }
 

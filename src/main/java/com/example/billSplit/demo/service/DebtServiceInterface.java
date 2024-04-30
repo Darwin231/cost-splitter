@@ -12,4 +12,6 @@ public interface DebtServiceInterface{
 
     void deleteDebt(Integer debtId);
 
+    void addDebtor(Integer debtId, User user);
+
 }

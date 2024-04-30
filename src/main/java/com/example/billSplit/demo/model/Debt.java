@@ -90,6 +90,10 @@ public class Debt {
         return debtors;
     }
 
+    public void addDebtor(User user){
+        debtors.add(user);
+    }
+
     public void setDebtors(List<User> debtors) {
         this.debtors = debtors;
     }
