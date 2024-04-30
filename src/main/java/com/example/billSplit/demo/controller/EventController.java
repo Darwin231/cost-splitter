@@ -66,4 +66,21 @@ public class EventController {
         return userRepository.findById(userId);
     }
 
+    //Debt Controller
+    @PostMapping("/user")
+    public Debt createDebt(@PathVariable Debt debt){
+        return debtServiceInterface.addNewDebt(debt);
+    }
+
+    @GetMapping("/user/debts/{eventId}")
+    public List<Debt> debtsByEvent(@PathVariable Integer eventId) {
+        return debtRepository.findDebtByEvent(eventId);
+    }
+
+    @GetMapping("/user/debts/{eventId}")
+    public List<Debt> debtsByUser(@PathVariable Integer userId) {
+        return debtRepository.findAllDebtsByUser(userId);
+    }
+
+
 }
