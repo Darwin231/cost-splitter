@@ -1,81 +1,106 @@
 package com.example.billSplit.demo.model;
-import com.example.billSplit.demo.Utils.Functions;
+
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
+import static jakarta.persistence.FetchType.EAGER;
+
+/**
+ * Entity class for representing a User in the database
+ */
 @Entity
-@Table(name = "users")
-public class User {
+public class User extends UserApp{
+    /**
+     * The unique identifier for the user
+     */
     @Id
+    /**
+     * The id field is generated automatically by the database
+     */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "name")
+    private Long id;
+    /**
+     * The name of the user
+     */
     private String name;
 
-    @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "organizer")
-    private List<Event> organizedEvents = new ArrayList<>();
+    /**
+     * The username used to log in
+     */
+    private String username;
 
-    @ManyToMany
-    @JoinTable(
-            name = "event_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name="event_id")
+    /**
+     * The password used to log in
+     */
+    private String password;
 
-    )
-    private List<Event> assistedEvents = new ArrayList<Event>();
+    /**
+     * The roles that the user has
+     */
+    @ManyToMany(fetch = EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
-    public User(String name, String email) {
-        setName(name);
-        setEmail(email);
+    public User(String name, String email, Long id, String username, String password) {
+        super(name, email);
+        this.id = id;
+        this.username = username;
+        this.password = password;
     }
 
-    public Integer getId() {
+    @Override
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
 
+    @Override
     public void setEmail(String email) {
-        // email check
-        if(Functions.isValidEmail(email)){
-            this.email = email;
-        } else {
-            throw new IllegalArgumentException("Not a valid e-mail");
-        }
+        this.email = email;
     }
 
-    public List<Event> getOrganizedEvents() {
-        return organizedEvents;
+    public String getUsername() {
+        return username;
     }
 
-    public void setOrganizedEvents(List<Event> organizedEvents) {
-        this.organizedEvents = organizedEvents;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public List<Event> getAssistedEvents() {
-        return assistedEvents;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAssistedEvents(List<Event> assistedEvents) {
-        this.assistedEvents = assistedEvents;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }

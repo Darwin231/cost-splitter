@@ -17,7 +17,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "organizer_id")
-    private User organizer;
+    private UserApp organizer;
 
     @Column(name = "location")
     private String location;
@@ -30,7 +30,7 @@ public class Event {
     private Date date;
 
     @ManyToMany(mappedBy = "assistedEvents")
-    private List<User> assistants;
+    private List<UserApp> assistants;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -39,7 +39,7 @@ public class Event {
     @Column(name = "settled_up")
     private Boolean settledUp;
 
-    public Event(String title, User organizer, String location, Float balance, Date date, List<User> assistants, Status status) {
+    public Event(String title, UserApp organizer, String location, Float balance, Date date, List<UserApp> assistants, Status status) {
         setTitle(title);
         setOrganizer(organizer);
         setLocation(location);
@@ -65,11 +65,11 @@ public class Event {
         this.title = title;
     }
 
-    public User getOrganizer() {
+    public UserApp getOrganizer() {
         return organizer;
     }
 
-    public void setOrganizer(User organizer) {
+    public void setOrganizer(UserApp organizer) {
         this.organizer = organizer;
     }
 
@@ -97,11 +97,11 @@ public class Event {
         this.date = date;
     }
 
-    public List<User> getAssistants() {
+    public List<UserApp> getAssistants() {
         return assistants;
     }
 
-    public void setAssistants(List<User> assistants) {
+    public void setAssistants(List<UserApp> assistants) {
         this.assistants = assistants;
     }
 

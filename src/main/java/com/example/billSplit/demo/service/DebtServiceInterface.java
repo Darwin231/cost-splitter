@@ -1,7 +1,7 @@
 package com.example.billSplit.demo.service;
 
 import com.example.billSplit.demo.model.Debt;
-import com.example.billSplit.demo.model.User;
+import com.example.billSplit.demo.model.UserApp;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface DebtServiceInterface{
 
     void deleteDebt(Integer debtId);
 
-    void addDebtor(Integer debtId, User user);
+    void addDebtor(Integer debtId, UserApp userApp);
 
     void payed(Integer debtId, Integer amount, Integer user);
 

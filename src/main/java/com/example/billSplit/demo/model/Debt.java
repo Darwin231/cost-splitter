@@ -10,11 +10,11 @@ public class Debt {
     // debt generation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserApp userApp;
 
     @Column(name = "expense")
     private float expense;
@@ -32,13 +32,13 @@ public class Debt {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "debt_id")
     )
-    private List<User> debtors;
+    private List<UserApp> debtors;
 
     @Column(name = "payed_amount")
     private Integer payedAmount;
 
-    public Debt(User user, float expense, String concept, Event event, List<User> debtors, Integer payedAmount) {
-        setUser(user);
+    public Debt(UserApp userApp, float expense, String concept, Event event, List<UserApp> debtors, Integer payedAmount) {
+        setUser(userApp);
         setExpense(expense);
         setConcept(concept);
         setEvent(event);
@@ -46,20 +46,20 @@ public class Debt {
         setPayedAmount(payedAmount);
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UserApp getUser() {
+        return userApp;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserApp userApp) {
+        this.userApp = userApp;
     }
 
     public float getExpense() {
@@ -86,15 +86,15 @@ public class Debt {
         this.event = event;
     }
 
-    public List<User> getDebtors() {
+    public List<UserApp> getDebtors() {
         return debtors;
     }
 
-    public void addDebtor(User user){
-        debtors.add(user);
+    public void addDebtor(UserApp userApp){
+        debtors.add(userApp);
     }
 
-    public void setDebtors(List<User> debtors) {
+    public void setDebtors(List<UserApp> debtors) {
         this.debtors = debtors;
     }
 
@@ -117,11 +117,11 @@ public class Debt {
         if (this == o) return true;
         if (!(o instanceof Debt)) return false;
         Debt debt = (Debt) o;
-        return Float.compare(expense, debt.expense) == 0 && Objects.equals(user, debt.user) && Objects.equals(concept, debt.concept) && Objects.equals(event, debt.event) && Objects.equals(debtors, debt.debtors) && Objects.equals(payedAmount, debt.payedAmount);
+        return Float.compare(expense, debt.expense) == 0 && Objects.equals(userApp, debt.userApp) && Objects.equals(concept, debt.concept) && Objects.equals(event, debt.event) && Objects.equals(debtors, debt.debtors) && Objects.equals(payedAmount, debt.payedAmount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, expense, concept, event, debtors, payedAmount);
+        return Objects.hash(userApp, expense, concept, event, debtors, payedAmount);
     }
 }
