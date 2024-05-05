@@ -1,11 +1,14 @@
 package com.example.billSplit.demo.model;
 import com.example.billSplit.demo.Utils.Functions;
 import jakarta.persistence.*;
+import org.springframework.boot.autoconfigure.web.WebProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +28,15 @@ public class UserApp {
             name = "event_users",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name="event_id")
-
     )
     private List<Event> assistedEvents = new ArrayList<Event>();
 
     public UserApp(String name, String email) {
         setName(name);
         setEmail(email);
+    }
+
+    public UserApp() {
     }
 
     public Long getId() {

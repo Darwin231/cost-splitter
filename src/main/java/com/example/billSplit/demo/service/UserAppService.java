@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserAppService implements UserAppServiceInterface {
@@ -27,7 +28,16 @@ public class UserAppService implements UserAppServiceInterface {
 
     @Override
     public void deleteUser(Integer userId) {
-        userAppRepository.deleteById(userId);
+
+        Optional<UserApp> user = userAppRepository.findById(userId);
+
+        if(user.isPresent()){
+            userAppRepository.deleteById(userId);
+        } else {
+            throw new IllegalArgumentException("User not found with ID: " + userId);
+        }
+
+
     }
 
 

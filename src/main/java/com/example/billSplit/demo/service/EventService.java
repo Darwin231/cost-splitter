@@ -19,6 +19,10 @@ public class EventService implements EventServiceInterface{
 
     @Override
     public Event addNewEvent(Event event) {
+        if(event.getOrganizer() == null){
+            throw new IllegalArgumentException("Missing organizer in your event");
+        }
+
         return eventRepository.save(event);
     }
 

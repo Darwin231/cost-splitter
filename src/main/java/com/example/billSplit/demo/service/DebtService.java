@@ -1,6 +1,7 @@
 package com.example.billSplit.demo.service;
 
 import com.example.billSplit.demo.model.Debt;
+import com.example.billSplit.demo.model.Event;
 import com.example.billSplit.demo.model.UserApp;
 import com.example.billSplit.demo.repository.DebtRepository;
 import com.example.billSplit.demo.repository.UserAppRepository;
@@ -25,8 +26,11 @@ public class DebtService implements DebtServiceInterface {
     }
 
     @Override
-    public Debt addNewDebt(Debt debt) {
-        return debtRepository.save(debt);
+    public Debt addNewDebt(Debt debt, Event event) {
+        if(debt.getExpense() >= 0) {
+            event.setBalance(event.getBalance() + debt.getExpense());
+            return debtRepository.save(debt);
+        } else {throw new IllegalArgumentException("Debt cannot be 0");}
     }
 
     @Override

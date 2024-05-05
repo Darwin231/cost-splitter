@@ -86,7 +86,17 @@ public class SecurityConfig {
                 //User permits
                 .requestMatchers(POST, "/api/user").permitAll()
                 .requestMatchers(GET, "/api/user").permitAll()
+
+                //Event permits
+                .requestMatchers(POST, "/api/event").permitAll()
+                .requestMatchers(GET, "/api/event").permitAll()
+
+                //Debt permits
+                .requestMatchers(POST, "/api/debt").permitAll()
+                .requestMatchers(GET, "/api/debt").permitAll()
+
                 .anyRequest().authenticated());
+
 
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);

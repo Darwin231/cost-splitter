@@ -12,25 +12,7 @@ import static jakarta.persistence.FetchType.EAGER;
  */
 @Entity
 public class User extends UserApp{
-    /**
-     * The unique identifier for the user
-     */
-    @Id
-    /**
-     * The id field is generated automatically by the database
-     */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    /**
-     * The name of the user
-     */
-    private String name;
 
-    private String email;
-
-    /**
-     * The username used to log in
-     */
     private String username;
 
     /**
@@ -46,38 +28,8 @@ public class User extends UserApp{
 
     public User(String name, String email, Long id, String username, String password) {
         super(name, email);
-        this.id = id;
         this.username = username;
         this.password = password;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getUsername() {

@@ -39,14 +39,17 @@ public class Event {
     @Column(name = "settled_up")
     private Boolean settledUp;
 
-    public Event(String title, UserApp organizer, String location, Float balance, Date date, List<UserApp> assistants, Status status) {
+    public Event(String title, UserApp organizer, String location, Date date, List<UserApp> assistants, Status status) {
         setTitle(title);
         setOrganizer(organizer);
         setLocation(location);
-        setBalance(balance);
+        setBalance(0.0F);
         setDate(date);
         setAssistants(assistants);
         setStatus(status);
+    }
+
+    public Event() {
     }
 
     public Integer getId() {
@@ -82,7 +85,7 @@ public class Event {
     }
 
     public Float getBalance() {
-        return balance;
+        return balance != null ? balance : 0.0F;
     }
 
     public void setBalance(Float balance) {
@@ -103,6 +106,10 @@ public class Event {
 
     public void setAssistants(List<UserApp> assistants) {
         this.assistants = assistants;
+    }
+
+    public void addAssistants(UserApp userApp){
+        assistants.add(userApp);
     }
 
     public Status getStatus() {

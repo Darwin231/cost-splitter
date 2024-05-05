@@ -2,7 +2,6 @@ package com.example.billSplit.demo.controller;
 
 import com.example.billSplit.demo.model.Debt;
 import com.example.billSplit.demo.model.Event;
-import com.example.billSplit.demo.model.User;
 import com.example.billSplit.demo.model.UserApp;
 import com.example.billSplit.demo.repository.DebtRepository;
 import com.example.billSplit.demo.repository.EventRepository;
@@ -66,11 +65,16 @@ public class EventController {
         return userAppRepository.findById(userId);
     }
 
+    @GetMapping("/user")
+    public Optional<List<UserApp>> getUsersByName(@RequestParam String name){
+        return userAppRepository.findByName(name);
+    }
+
 
     //Debt Controller
     @PostMapping("/debt")
-    public Debt createDebt(@RequestBody Debt debt){
-        return debtServiceInterface.addNewDebt(debt);
+    public Debt createDebt(@RequestBody Debt debt, Event event){
+        return debtServiceInterface.addNewDebt(debt, event);
     }
 
     @GetMapping("/user/debts/events/{eventId}")

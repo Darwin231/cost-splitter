@@ -46,6 +46,9 @@ public class Debt {
         setPayedAmount(payedAmount);
     }
 
+    public Debt() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -106,7 +109,7 @@ public class Debt {
         this.payedAmount = payedAmount;
     }
 
-    // Once a payed has been received
+    // Once a paid has been received
     public void pay(Integer payed, Debt debt){
         debt.setPayedAmount(payed);
         debt.setExpense(debt.getExpense() - payed);
