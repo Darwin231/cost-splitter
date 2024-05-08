@@ -39,17 +39,20 @@ public class Event {
     @Column(name = "settled_up")
     private Boolean settledUp;
 
-    public Event(String title, UserApp organizer, String location, Date date, List<UserApp> assistants, Status status) {
+    public Event(String title, UserApp organizer, String location, Float balance, Date date, List<UserApp> assistants) {
         setTitle(title);
         setOrganizer(organizer);
         setLocation(location);
-        setBalance(0.0F);
+        setBalance(balance);
         setDate(date);
         setAssistants(assistants);
-        setStatus(status);
+        setStatus(Status.ACTIVE);
+        setSettledUp(false);
     }
 
     public Event() {
+        setStatus(Status.ACTIVE);
+        setSettledUp(false);
     }
 
     public Integer getId() {
@@ -89,7 +92,11 @@ public class Event {
     }
 
     public void setBalance(Float balance) {
-        this.balance = balance;
+        if (balance.isNaN()){
+            this.balance = 0.0F;
+        }else {
+            this.balance = balance;
+        }
     }
 
     public Date getDate() {

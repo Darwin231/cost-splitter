@@ -64,7 +64,15 @@ public class DebtService implements DebtServiceInterface {
             int debtIndex = debt.get().getDebtors().indexOf(user.get());
 
             debt.get().setDebtors((List<UserApp>) debt.get().getDebtors().remove(debtIndex));
+
+            // paid amount in event
+            Event event = debt.get().getEvent();
+            event.setBalance(event.getBalance()- debt.get().getPayedAmount());
+
+        } else if (debt.get().getExpense() <= 0) {
+            throw new IllegalArgumentException("You cannot pay a non existing debt");
         }
+
 
         debtRepository.save(debt.get());
     }

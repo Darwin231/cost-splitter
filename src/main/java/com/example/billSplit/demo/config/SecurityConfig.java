@@ -82,6 +82,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/login/**").permitAll()
                 /*.requestMatchers(GET, "/api/users").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .requestMatchers(POST, "/api/users").hasAnyAuthority("ROLE_ADMIN")*/
+                .requestMatchers("/error/**").permitAll()
 
                 //User permits
                 .requestMatchers(POST, "/api/user").permitAll()

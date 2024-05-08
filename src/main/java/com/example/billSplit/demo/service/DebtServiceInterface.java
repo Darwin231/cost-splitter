@@ -17,4 +17,5 @@ public interface DebtServiceInterface{
 
     void payed(Integer debtId, Integer amount, Integer user);
 
+
 }

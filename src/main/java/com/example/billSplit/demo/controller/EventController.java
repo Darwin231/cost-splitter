@@ -10,6 +10,7 @@ import com.example.billSplit.demo.service.DebtServiceInterface;
 import com.example.billSplit.demo.service.EventServiceInterface;
 import com.example.billSplit.demo.service.UserAppServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,11 @@ public class EventController {
     @PostMapping("/event")
     public Event createEvent(@RequestBody Event event){
         return eventServiceInterface.addNewEvent(event);
+    }
+
+    @PatchMapping("/event/assistant")
+    public HttpStatus addAssistant(@PathVariable Integer eventId, @RequestBody UserApp userApp){
+        return eventServiceInterface.addAssistant(eventId, userApp);
     }
 
     @GetMapping("/event/assistants/{event_id}")
