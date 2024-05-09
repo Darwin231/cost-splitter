@@ -18,8 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
@@ -89,12 +88,13 @@ public class SecurityConfig {
                 .requestMatchers(GET, "/api/user").permitAll()
 
                 //Event permits
-                .requestMatchers(POST, "/api/event").permitAll()
-                .requestMatchers(GET, "/api/event").permitAll()
+                .requestMatchers(POST, "/api/event/**").permitAll()
+                .requestMatchers(GET, "/api/event/**").permitAll()
+                .requestMatchers(PATCH, "/api/event/**").permitAll()
 
                 //Debt permits
-                .requestMatchers(POST, "/api/debt").permitAll()
-                .requestMatchers(GET, "/api/debt").permitAll()
+                .requestMatchers(POST, "/api/debt/**").permitAll()
+                .requestMatchers(GET, "/api/debt/**").permitAll()
 
                 .anyRequest().authenticated());
 

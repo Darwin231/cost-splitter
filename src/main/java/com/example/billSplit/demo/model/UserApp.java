@@ -12,7 +12,7 @@ import java.util.List;
 public class UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -23,7 +23,7 @@ public class UserApp {
     @OneToMany(mappedBy = "organizer")
     private List<Event> organizedEvents = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "event_users",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -39,11 +39,11 @@ public class UserApp {
     public UserApp() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

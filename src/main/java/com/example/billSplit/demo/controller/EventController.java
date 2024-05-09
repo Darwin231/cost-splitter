@@ -10,7 +10,6 @@ import com.example.billSplit.demo.service.DebtServiceInterface;
 import com.example.billSplit.demo.service.EventServiceInterface;
 import com.example.billSplit.demo.service.UserAppServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,17 +43,22 @@ public class EventController {
         return eventServiceInterface.addNewEvent(event);
     }
 
-    @PatchMapping("/event/assistant")
-    public HttpStatus addAssistant(@PathVariable Integer eventId, @RequestBody UserApp userApp){
+    @GetMapping("/event/events")
+    public List<Event> getEvents(){
+        return eventRepository.findAll();
+    }
+
+    @PatchMapping("/event/assistant/{eventId}")
+    public Event addAssistant(@PathVariable Integer eventId, @RequestBody UserApp userApp){
         return eventServiceInterface.addAssistant(eventId, userApp);
     }
 
-    @GetMapping("/event/assistants/{event_id}")
-    public List<UserApp> getAllUserByEventId(Event event){
-        return eventRepository.findAssistantsByEventId(event.getId());
+    @GetMapping("/event/{eventId}/assistants")
+    public List<UserApp> getAllUserByEventId(@PathVariable Integer eventId){
+        return eventRepository.findAssistantsByEventId(eventId);
     }
 
-    @GetMapping("/event/organizer/{event_id}")
+    @GetMapping("/event/organizer/{eventId}")
     public List<UserApp> getOrganizerByEventId(@PathVariable Integer eventId){
         return eventRepository.findOrganizersByEventId(eventId);
     }
@@ -99,10 +103,11 @@ public class EventController {
     }
 
     // establish the amount to the bill between assistants
-    @GetMapping("/debt/amounts")
-    public int amountToPay(Debt debt, List<UserApp> userApps){
-        int amount = (int) (debt.getExpense() / debt.getDebtors().size());
-        debt.setDebtors(userApps);
+    @GetMapping("/debt/{debtId}/amounts")
+    public int amountToPay(@ PathVariable Integer debtId, List<UserApp> userApps){
+        Optional<Debt> debt = debtRepository.findById(debtId);
+        int amount = (int) (debt.get().getExpense() / debt.get().getDebtors().size());
+        debt.get().setDebtors(userApps);
         return amount;
     }
 

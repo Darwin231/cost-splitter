@@ -1,10 +1,15 @@
 package com.example.billSplit.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Entity
 @Table(name = "event")
 public class Event {
@@ -116,7 +121,10 @@ public class Event {
     }
 
     public void addAssistants(UserApp userApp){
-        assistants.add(userApp);
+        if (!assistants.contains(userApp)){
+            assistants.add(userApp);
+            userApp.getAssistedEvents().add(this);
+        }
     }
 
     public Status getStatus() {

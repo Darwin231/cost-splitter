@@ -29,8 +29,8 @@ public class Debt {
     @ManyToMany
     @JoinTable(
             name = "debt_debtors",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "debt_id")
+            joinColumns = @JoinColumn(name = "debt_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<UserApp> debtors;
 
