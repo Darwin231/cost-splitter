@@ -26,6 +26,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     List<UserApp> findAssistantsByEventTitle(@Param("eventTitle") String eventTitle);
 
     @Query("SELECT DISTINCT e.organizer FROM Event e WHERE e.id = :eventId")
-    List<UserApp> findOrganizersByEventId(@Param("eventId") Integer eventId);
+    List<UserApp> findOrganizerIdByEventId(@Param("eventId") Integer eventId);
 
 }

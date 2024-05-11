@@ -58,9 +58,9 @@ public class EventController {
         return eventRepository.findAssistantsByEventId(eventId);
     }
 
-    @GetMapping("/event/organizer/{eventId}")
-    public List<UserApp> getOrganizerByEventId(@PathVariable Integer eventId){
-        return eventRepository.findOrganizersByEventId(eventId);
+    @GetMapping("/event/{eventId}/organizer")
+    public List<UserApp> getOrganizerIdByEventId(@PathVariable Integer eventId){
+        return eventRepository.findOrganizerIdByEventId(eventId);
     }
 
 
@@ -87,29 +87,30 @@ public class EventController {
         return debtServiceInterface.addNewDebt(debt, event);
     }
 
-    @GetMapping("/user/debts/events/{eventId}")
+    @GetMapping("/debt/{eventId}/events")
     public List<Debt> debtsByEvent(@PathVariable Integer eventId) {
         return debtRepository.findDebtByEvent(eventId);
     }
 
-    @GetMapping("/user/debts/{eventId}")
+    @GetMapping("/debt/{userId}/debts")
     public List<Debt> debtsByUser(@PathVariable Integer userId) {
-        return debtRepository.findAllDebtsByUser(userId);
+        return debtRepository.findAllDebtByUserId(userId);
     }
 
-    @PutMapping("/debt")
-    public void addDebtor(Integer debtId, UserApp userApp) {
+    @PostMapping("/debt/{debtId}/debtors")
+    public void addDebtor(@PathVariable Integer debtId, @RequestBody UserApp userApp) {
         debtServiceInterface.addDebtor(debtId, userApp);
     }
 
     // establish the amount to the bill between assistants
     @GetMapping("/debt/{debtId}/amounts")
-    public int amountToPay(@ PathVariable Integer debtId, List<UserApp> userApps){
+    public int amountToPay(@ PathVariable Integer debtId){
         Optional<Debt> debt = debtRepository.findById(debtId);
         int amount = (int) (debt.get().getExpense() / debt.get().getDebtors().size());
-        debt.get().setDebtors(userApps);
+
         return amount;
     }
+
 
     // do a payment
     @PutMapping("/debt/payed")

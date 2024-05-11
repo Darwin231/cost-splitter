@@ -37,6 +37,9 @@ public class Debt {
     @Column(name = "payed_amount")
     private Integer payedAmount;
 
+    @Column(name = "amount_per_user")
+    private Float amountPerUser;
+
     public Debt(UserApp userApp, float expense, String concept, Event event, List<UserApp> debtors, Integer payedAmount) {
         setUser(userApp);
         setExpense(expense);
@@ -114,6 +117,7 @@ public class Debt {
         debt.setPayedAmount(payed);
         debt.setExpense(debt.getExpense() - payed);
     }
+
 
     @Override
     public boolean equals(Object o) {

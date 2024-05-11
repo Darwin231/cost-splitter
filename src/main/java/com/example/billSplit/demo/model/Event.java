@@ -143,4 +143,5 @@ public class Event {
     public void setSettledUp(Boolean settledUp) {
         this.settledUp = settledUp;
     }
+
 }
