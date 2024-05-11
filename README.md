@@ -32,8 +32,27 @@ npm install
 
 ## API Documentation
 
+### User
+__POST__ ("/user") -> To create a new user.
+__GET__ ("/user/{userId}") -> To search for user by ID.
+
 ### Events
-__/POST/__ ("/event") -> to create a new event
+__POST__ ("/event") -> To create a new event.
+__GET__ ("/event/events) -> To list all the events registered.
+__GET__ ("/event/{eventId}/assistants") -> To list all the assistants in the selected event.
+__PATH__ ("/event/assistant/{eventId}") -> To add an assistant to the event selected.
+
+### Debt
+__POST__ ("/debt") -> Create a new debt. Remeber to mark by the event.
+__GET__ ("/debt/{eventId}/debts") -> List all the debts by event.
+__GET__ ("/debt/{userId}/debts") -> List all debts by user.
+__POST__ ("/debt/{debtId}/debtors") -> Add a new debtor to the debt.
+__GET__ ("/debt/{debtId}/amounts") -> Calculates the amounts to pay.
+__PUT__ ("/debt/payed") -> To pay a debt by user.
+
+
+
+
 
 
 
