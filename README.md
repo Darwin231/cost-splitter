@@ -57,8 +57,8 @@ npm install
 Feel free to customize this README by adding more specifics about your API, such as more detailed API documentation, usage examples, and any other relevant information that users of your API would need.
 
 
-***Author***: Darwin Diaz
-***github***: https://github.com/Darwin231
++ ***Author***: Darwin Diaz 
++ ***github***: https://github.com/Darwin231
 
 
 
