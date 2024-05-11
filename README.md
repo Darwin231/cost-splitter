@@ -4,6 +4,8 @@
 
 __Cost Splitter__ is a *RESTful API* designed to manage events and associated debts, enabling users to effortlessly split bills among participants. This API provides endpoints for creating events, registering expenses, and calculating how much each participant owes or is owed.
 
+Inspirated on the mobile App SplitWise.
+
 ## Features
 
 Event Management: Create and manage events with details like date, location, and participants.
