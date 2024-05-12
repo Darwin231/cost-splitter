@@ -52,6 +52,14 @@ npm install
 - __GET__ ("/debt/{debtId}/amounts") -> Calculates the amounts to pay.
 - __PUT__ ("/debt/payed") -> To pay a debt by user.
 
+# Git strategy
+This project was created with the git flow strategy:
+
+https://www.google.com/imgres?q=git%20flow%20strategy&imgurl=https%3A%2F%2Fbuddy.works%2Fblog%2Fimages%2Fgitflow.png&imgrefurl=https%3A%2F%2Fbuddy.works%2Fblog%2F5-types-of-git-workflows&docid=MPlnJNKmG2KfGM&tbnid=vv7FNnzuFg8QKM&vet=12ahUKEwjDvLfq8YeGAxXYfKQEHdNICBQQM3oECBsQAA..i&w=801&h=400&hcb=2&ved=2ahUKEwjDvLfq8YeGAxXYfKQEHdNICBQQM3oECBsQAA![Uploading image.png…]()
+
+- Main
+- Develop
+- 2 features branches
 
 # License
 Feel free to customize this README by adding more specifics about your API, such as more detailed API documentation, usage examples, and any other relevant information that users of your API would need.
