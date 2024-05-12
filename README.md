@@ -53,7 +53,7 @@ npm install
 - __PUT__ ("/debt/payed") -> To pay a debt by user.
 
 # Git strategy
-This project was created with the git flow strategy:
+This project was created with the ***git flow*** strategy:
 
 ![1*3-0EDzE63S_UZx2KbIz_dg](https://github.com/Darwin231/cost-splitter/assets/96625479/d316b32c-2939-42de-8568-c03616c3bc1f)
 
