@@ -55,7 +55,8 @@ npm install
 # Git strategy
 This project was created with the git flow strategy:
 
-https://www.google.com/imgres?q=git%20flow%20strategy&imgurl=https%3A%2F%2Fbuddy.works%2Fblog%2Fimages%2Fgitflow.png&imgrefurl=https%3A%2F%2Fbuddy.works%2Fblog%2F5-types-of-git-workflows&docid=MPlnJNKmG2KfGM&tbnid=vv7FNnzuFg8QKM&vet=12ahUKEwjDvLfq8YeGAxXYfKQEHdNICBQQM3oECBsQAA..i&w=801&h=400&hcb=2&ved=2ahUKEwjDvLfq8YeGAxXYfKQEHdNICBQQM3oECBsQAA![Uploading image.png…]()
+![1*3-0EDzE63S_UZx2KbIz_dg](https://github.com/Darwin231/cost-splitter/assets/96625479/d316b32c-2939-42de-8568-c03616c3bc1f)
+
 
 - Main
 - Develop
