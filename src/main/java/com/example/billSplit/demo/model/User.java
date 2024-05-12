@@ -1,62 +1,58 @@
 package com.example.billSplit.demo.model;
-import com.example.billSplit.demo.Utils.Functions;
+
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
-@Entity(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+import static jakarta.persistence.FetchType.EAGER;
 
-    @Column(name = "name")
-    private String name;
+/**
+ * Entity class for representing a User in the database
+ */
+@Entity
+public class User extends UserApp{
 
-    @Column(name = "email")
-    private String email;
+    private String username;
 
-    @Column(name = "events")
-    private List<Event> events = new ArrayList<Event>();
+    /**
+     * The password used to log in
+     */
+    private String password;
 
-    public User(String name, String email) {
-        setName(name);
-        setEmail(email);
+    /**
+     * The roles that the user has
+     */
+    @ManyToMany(fetch = EAGER)
+    private Collection<Role> roles = new ArrayList<>();
+
+    public User(String name, String email, Long id, String username, String password) {
+        super(name, email);
+        this.username = username;
+        this.password = password;
     }
 
-    public User(String name, String email, List<Event> events) {
-        setName(name);
-        setEmail(email);
-        setEvents(events);
+    public String getUsername() {
+        return username;
     }
 
-    public String getName() {
-        return name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPassword() {
+        return password;
     }
 
-    public String getMail() {
-        return email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setEmail(String email) {
-        // email check
-        if(Functions.isValidEmail(email)){
-            this.email = email;
-        } else {
-            throw new IllegalArgumentException("Not a valid e-mail");
-        }
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }

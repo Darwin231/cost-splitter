@@ -2,47 +2,73 @@ package com.example.billSplit.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "debt")
+@Entity
+@Table(name = "Debt")
 public class Debt {
     // debt generation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "user")
-    private User user;
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserApp userApp;
+
     @Column(name = "expense")
     private float expense;
+
     @Column(name = "concept")
     private String concept;
-    @Column(name = "event")
+
+    @ManyToOne
+    @JoinColumn(name = "event_id")
     private Event event;
-    @Column(name = "debtors")
-    private List<User> debtors;
-    @Column(name = "payed_debtors")
-    private List<User> payedDebtors;
+
+    @ManyToMany
+    @JoinTable(
+            name = "debt_debtors",
+            joinColumns = @JoinColumn(name = "debt_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<UserApp> debtors;
+
     @Column(name = "payed_amount")
-    private Integer payedAmount;
+    private Float payedAmount;
 
+    @OneToMany(mappedBy = "debt")
+    private List<Balance> balances = new ArrayList<>();
 
-    public Debt(User user, float expense, String concept, Event event, List<User> debtors, List<User> payedDebtors, Integer payedAmount) {
-        setUser(user);
+    public Debt(UserApp userApp, float expense, String concept, Event event, List<UserApp> debtors, Float payedAmount) {
+        setUser(userApp);
         setExpense(expense);
         setConcept(concept);
         setEvent(event);
         setDebtors(debtors);
-        setPayedDebtors(payedDebtors);
         setPayedAmount(payedAmount);
+
     }
 
-    public User getUser() {
-        return user;
+    public Debt() {
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public UserApp getUser() {
+        return userApp;
+    }
+
+    public void setUser(UserApp userApp) {
+        this.userApp = userApp;
     }
 
     public float getExpense() {
@@ -69,28 +95,38 @@ public class Debt {
         this.event = event;
     }
 
-    public List<User> getDebtors() {
+    public List<UserApp> getDebtors() {
         return debtors;
     }
 
-    public void setDebtors(List<User> debtors) {
+    public void addDebtor(UserApp userApp){
+        debtors.add(userApp);
+    }
+
+    public void setDebtors(List<UserApp> debtors) {
         this.debtors = debtors;
     }
 
-    public List<User> getPayedDebtors() {
-        return payedDebtors;
-    }
-
-    public void setPayedDebtors(List<User> payedDebtors) {
-        this.payedDebtors = payedDebtors;
-    }
-
-    public Integer getPayedAmount() {
+    public Float getPayedAmount() {
         return payedAmount;
     }
 
-    public void setPayedAmount(Integer payedAmount) {
+    public void setPayedAmount(Float payedAmount) {
         this.payedAmount = payedAmount;
+    }
+
+    // Once a paid has been received
+    public void pay(Float payed, Debt debt){
+        debt.setPayedAmount(payed);
+        debt.setExpense(debt.getExpense() - payed);
+    }
+
+    public List<Balance> getBalances() {
+        return balances;
+    }
+
+    public void setBalances(List<Balance> balances) {
+        this.balances = balances;
     }
 
     @Override
@@ -98,11 +134,11 @@ public class Debt {
         if (this == o) return true;
         if (!(o instanceof Debt)) return false;
         Debt debt = (Debt) o;
-        return Float.compare(expense, debt.expense) == 0 && Objects.equals(user, debt.user) && Objects.equals(concept, debt.concept) && Objects.equals(event, debt.event) && Objects.equals(debtors, debt.debtors) && Objects.equals(payedDebtors, debt.payedDebtors) && Objects.equals(payedAmount, debt.payedAmount);
+        return Float.compare(expense, debt.expense) == 0 && Objects.equals(userApp, debt.userApp) && Objects.equals(concept, debt.concept) && Objects.equals(event, debt.event) && Objects.equals(debtors, debt.debtors) && Objects.equals(payedAmount, debt.payedAmount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, expense, concept, event, debtors, payedDebtors, payedAmount);
+        return Objects.hash(userApp, expense, concept, event, debtors, payedAmount);
     }
 }
