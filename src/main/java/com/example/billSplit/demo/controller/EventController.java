@@ -104,17 +104,16 @@ public class EventController {
 
     // establish the amount to the bill between assistants
     @GetMapping("/debt/{debtId}/amounts")
-    public int amountToPay(@ PathVariable Integer debtId){
+    public int amountToPay(@PathVariable Integer debtId){
         Optional<Debt> debt = debtRepository.findById(debtId);
         int amount = (int) (debt.get().getExpense() / debt.get().getDebtors().size());
 
         return amount;
     }
 
-
     // do a payment
-    @PutMapping("/debt/payed")
-    public void pay(Integer debtId, Integer amount, Integer userId){
+    @PatchMapping("/debt/{debtId}/{userId}/payed")
+    public void pay(@PathVariable Integer debtId, @PathVariable Integer userId, @RequestParam Float amount){
         debtServiceInterface.payed(debtId, amount, userId);
     }
 

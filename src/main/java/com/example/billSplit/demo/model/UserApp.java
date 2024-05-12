@@ -31,6 +31,10 @@ public class UserApp {
     )
     private List<Event> assistedEvents = new ArrayList<Event>();
 
+    @Column(name = "user_balances")
+    @OneToMany(mappedBy = "userApp")
+    private List<Balance> balances = new ArrayList<>();
+
     public UserApp(String name, String email) {
         setName(name);
         setEmail(email);
@@ -82,5 +86,13 @@ public class UserApp {
 
     public void setAssistedEvents(List<Event> assistedEvents) {
         this.assistedEvents = assistedEvents;
+    }
+
+    public List<Balance> getBalances() {
+        return balances;
+    }
+
+    public void setBalances(List<Balance> balances) {
+        this.balances = balances;
     }
 }

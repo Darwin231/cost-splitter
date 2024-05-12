@@ -1,6 +1,8 @@
 package com.example.billSplit.demo.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,18 +37,19 @@ public class Debt {
     private List<UserApp> debtors;
 
     @Column(name = "payed_amount")
-    private Integer payedAmount;
+    private Float payedAmount;
 
-    @Column(name = "amount_per_user")
-    private Float amountPerUser;
+    @OneToMany(mappedBy = "debt")
+    private List<Balance> balances = new ArrayList<>();
 
-    public Debt(UserApp userApp, float expense, String concept, Event event, List<UserApp> debtors, Integer payedAmount) {
+    public Debt(UserApp userApp, float expense, String concept, Event event, List<UserApp> debtors, Float payedAmount) {
         setUser(userApp);
         setExpense(expense);
         setConcept(concept);
         setEvent(event);
         setDebtors(debtors);
         setPayedAmount(payedAmount);
+
     }
 
     public Debt() {
@@ -104,20 +107,27 @@ public class Debt {
         this.debtors = debtors;
     }
 
-    public Integer getPayedAmount() {
+    public Float getPayedAmount() {
         return payedAmount;
     }
 
-    public void setPayedAmount(Integer payedAmount) {
+    public void setPayedAmount(Float payedAmount) {
         this.payedAmount = payedAmount;
     }
 
     // Once a paid has been received
-    public void pay(Integer payed, Debt debt){
+    public void pay(Float payed, Debt debt){
         debt.setPayedAmount(payed);
         debt.setExpense(debt.getExpense() - payed);
     }
 
+    public List<Balance> getBalances() {
+        return balances;
+    }
+
+    public void setBalances(List<Balance> balances) {
+        this.balances = balances;
+    }
 
     @Override
     public boolean equals(Object o) {

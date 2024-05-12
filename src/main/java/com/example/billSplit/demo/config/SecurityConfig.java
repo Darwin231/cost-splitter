@@ -95,6 +95,12 @@ public class SecurityConfig {
                 //Debt permits
                 .requestMatchers(POST, "/api/debt/**").permitAll()
                 .requestMatchers(GET, "/api/debt/**").permitAll()
+                .requestMatchers(PATCH, "/api/debt/**").permitAll()
+
+                //Balance permits
+                .requestMatchers(POST, "/api/balance/**").permitAll()
+                .requestMatchers(GET, "/api/balance/**").permitAll()
+                .requestMatchers(PATCH, "/api/balance/**").permitAll()
 
                 .anyRequest().authenticated());
 

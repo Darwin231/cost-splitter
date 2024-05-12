@@ -15,6 +15,6 @@ public interface DebtServiceInterface{
 
     void addDebtor(Integer debtId, UserApp userApp);
 
-    void payed(Integer debtId, Integer amount, Integer user);
+    void payed(Integer debtId, Float amount, Integer user);
 
 }
