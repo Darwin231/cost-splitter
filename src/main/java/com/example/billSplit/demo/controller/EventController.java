@@ -2,15 +2,14 @@ package com.example.billSplit.demo.controller;
 
 import com.example.billSplit.demo.model.Debt;
 import com.example.billSplit.demo.model.Event;
-import com.example.billSplit.demo.model.User;
+import com.example.billSplit.demo.model.UserApp;
 import com.example.billSplit.demo.repository.DebtRepository;
 import com.example.billSplit.demo.repository.EventRepository;
-import com.example.billSplit.demo.repository.UserRepository;
+import com.example.billSplit.demo.repository.UserAppRepository;
 import com.example.billSplit.demo.service.DebtServiceInterface;
 import com.example.billSplit.demo.service.EventServiceInterface;
-import com.example.billSplit.demo.service.UserServiceInterface;
+import com.example.billSplit.demo.service.UserAppServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,9 +26,9 @@ public class EventController {
 
     //User dependencies
     @Autowired
-    private UserServiceInterface userServiceInterface;
+    private UserAppServiceInterface userAppServiceInterface;
     @Autowired
-    private UserRepository userRepository;
+    private UserAppRepository userAppRepository;
 
     //Debt dependencies
     @Autowired
@@ -40,30 +39,83 @@ public class EventController {
 
     //Event controller
     @PostMapping("/event")
-    public Event createEvent(@PathVariable Event event){
+    public Event createEvent(@RequestBody Event event){
         return eventServiceInterface.addNewEvent(event);
     }
 
-    @GetMapping("/event/assistants/{event_id}")
-    public List<User> getAllUserByEventId(Event event){
-        return eventRepository.findAssistantsByEventIds(event.getId());
+    @GetMapping("/event/events")
+    public List<Event> getEvents(){
+        return eventRepository.findAll();
     }
 
-    @GetMapping("/event/organizer/{event_id}")
-    public List<User> getOrganizerByEventId(@PathVariable Integer eventId){
-        return eventRepository.findOrganizersByEventIds(eventId);
+    @PatchMapping("/event/assistant/{eventId}")
+    public Event addAssistant(@PathVariable Integer eventId, @RequestBody UserApp userApp){
+        return eventServiceInterface.addAssistant(eventId, userApp);
+    }
+
+    @GetMapping("/event/{eventId}/assistants")
+    public List<UserApp> getAllUserByEventId(@PathVariable Integer eventId){
+        return eventRepository.findAssistantsByEventId(eventId);
+    }
+
+    @GetMapping("/event/{eventId}/organizer")
+    public List<UserApp> getOrganizerIdByEventId(@PathVariable Integer eventId){
+        return eventRepository.findOrganizerIdByEventId(eventId);
     }
 
 
     //User Controller
     @PostMapping("/user")
-    public User createUser(@PathVariable User user){
-        return userServiceInterface.addNewUser(user);
+    public UserApp createUser(@RequestBody UserApp userApp){
+        return userAppServiceInterface.addNewUser(userApp);
     }
 
     @GetMapping("/user/{userId}")
-    public Optional<User> getUser(@PathVariable Integer userId){
-        return userRepository.findById(userId);
+    public Optional<UserApp> getUser(@PathVariable Integer userId){
+        return userAppRepository.findById(userId);
     }
+
+    @GetMapping("/user")
+    public Optional<List<UserApp>> getUsersByName(@RequestParam String name){
+        return userAppRepository.findByName(name);
+    }
+
+
+    //Debt Controller
+    @PostMapping("/debt")
+    public Debt createDebt(@RequestBody Debt debt, Event event){
+        return debtServiceInterface.addNewDebt(debt, event);
+    }
+
+    @GetMapping("/debt/{eventId}/events")
+    public List<Debt> debtsByEvent(@PathVariable Integer eventId) {
+        return debtRepository.findDebtByEvent(eventId);
+    }
+
+    @GetMapping("/debt/{userId}/debts")
+    public List<Debt> debtsByUser(@PathVariable Integer userId) {
+        return debtRepository.findAllDebtByUserId(userId);
+    }
+
+    @PostMapping("/debt/{debtId}/debtors")
+    public void addDebtor(@PathVariable Integer debtId, @RequestBody UserApp userApp) {
+        debtServiceInterface.addDebtor(debtId, userApp);
+    }
+
+    // establish the amount to the bill between assistants
+    @GetMapping("/debt/{debtId}/amounts")
+    public int amountToPay(@PathVariable Integer debtId){
+        Optional<Debt> debt = debtRepository.findById(debtId);
+        int amount = (int) (debt.get().getExpense() / debt.get().getDebtors().size());
+
+        return amount;
+    }
+
+    // do a payment
+    @PatchMapping("/debt/{debtId}/{userId}/payed")
+    public void pay(@PathVariable Integer debtId, @PathVariable Integer userId, @RequestParam Float amount){
+        debtServiceInterface.payed(debtId, amount, userId);
+    }
+
 
 }

@@ -1,81 +1,58 @@
 package com.example.billSplit.demo.model;
-import com.example.billSplit.demo.Utils.Functions;
+
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
+import static jakarta.persistence.FetchType.EAGER;
+
+/**
+ * Entity class for representing a User in the database
+ */
 @Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class User extends UserApp{
 
-    @Column(name = "name")
-    private String name;
+    private String username;
 
-    @Column(name = "email")
-    private String email;
+    /**
+     * The password used to log in
+     */
+    private String password;
 
-    @OneToMany(mappedBy = "organizer")
-    private List<Event> organizedEvents = new ArrayList<>();
+    /**
+     * The roles that the user has
+     */
+    @ManyToMany(fetch = EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "event_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name="event_id")
-
-    )
-    private List<Event> assistedEvents = new ArrayList<Event>();
-
-    public User(String name, String email) {
-        setName(name);
-        setEmail(email);
+    public User(String name, String email, Long id, String username, String password) {
+        super(name, email);
+        this.username = username;
+        this.password = password;
     }
 
-    public Integer getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
-    public void setEmail(String email) {
-        // email check
-        if(Functions.isValidEmail(email)){
-            this.email = email;
-        } else {
-            throw new IllegalArgumentException("Not a valid e-mail");
-        }
-    }
-
-    public List<Event> getOrganizedEvents() {
-        return organizedEvents;
-    }
-
-    public void setOrganizedEvents(List<Event> organizedEvents) {
-        this.organizedEvents = organizedEvents;
-    }
-
-    public List<Event> getAssistedEvents() {
-        return assistedEvents;
-    }
-
-    public void setAssistedEvents(List<Event> assistedEvents) {
-        this.assistedEvents = assistedEvents;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }
