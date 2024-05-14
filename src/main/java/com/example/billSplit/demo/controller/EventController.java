@@ -3,6 +3,7 @@ package com.example.billSplit.demo.controller;
 import com.example.billSplit.demo.model.Debt;
 import com.example.billSplit.demo.model.Event;
 import com.example.billSplit.demo.model.UserApp;
+import com.example.billSplit.demo.repository.BalanceRepository;
 import com.example.billSplit.demo.repository.DebtRepository;
 import com.example.billSplit.demo.repository.EventRepository;
 import com.example.billSplit.demo.repository.UserAppRepository;
@@ -35,6 +36,9 @@ public class EventController {
     private DebtServiceInterface debtServiceInterface;
     @Autowired
     private DebtRepository debtRepository;
+
+    @Autowired
+    private BalanceRepository balanceRepository;
 
 
     //Event controller
@@ -115,6 +119,11 @@ public class EventController {
     @PatchMapping("/debt/{debtId}/{userId}/payed")
     public void pay(@PathVariable Integer debtId, @PathVariable Integer userId, @RequestParam Float amount){
         debtServiceInterface.payed(debtId, amount, userId);
+    }
+
+    @GetMapping("/debt/{debtId}/{userId}/balance")
+    public void pay(@PathVariable Integer debtId, @PathVariable Integer userId){
+        balanceRepository.findBalanceByUserIdAndDebtId(userId, debtId);
     }
 
 
