@@ -37,6 +37,11 @@ public class SecurityConfig {
     @Autowired
     private AuthenticationManagerBuilder authManagerBuilder;
 
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
+
     /**
      * Bean definition for PasswordEncoder
      *
