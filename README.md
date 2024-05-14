@@ -52,6 +52,8 @@ npm install
 - __GET__ ("/debt/{debtId}/amounts") -> Calculates the amounts to pay.
 - __PUT__ ("/debt/payed") -> To pay a debt by user.
 
+### Balance
+-__GET__ ("/debt/{debtId}/{userId}/balance") -> Search for a debt balance.
 # Git strategy
 This project was created with the ***git flow*** strategy:
 
